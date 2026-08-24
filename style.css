@@ -163,7 +163,7 @@ body {
 
 /* --- MAIN CONTENT & STAGES --- */
 #main-content {
-    padding-bottom: 80px; /* Spazio per la barra in basso */
+    padding-bottom: 140px; /* Spazio per la barra in basso */
     min-height: 100vh;
 }
 
