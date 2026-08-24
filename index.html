@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Level 1: Compleanno</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div id="background-animations"></div>
+
+    <!-- SCHERMATA DI SBLOCCO (SPLIT SCREEN) -->
+    <!-- SCHERMATA DI SBLOCCO (CONSOLE CARD UNIFICATA) -->
+    <section id="login-screen" class="screen">
+        <div class="retro-box login-container">
+            
+            <!-- FOTO IN ALTO -->
+            <div class="login-photo-wrapper">
+                <img src="img/sfondopass.jpeg" alt="Noi due" class="hero-login-photo">
+            </div>
+            
+            <!-- TESTO E PIN -->
+            <h2>GUESS THE PIN</h2>
+            <div class="pin-display">
+                <span class="dot">_</span>
+                <span class="dot">_</span>
+                <span class="dot">_</span>
+                <span class="dot">_</span>
+            </div>
+            <p id="error-msg" class="hidden">GAME OVER! TRY AGAIN</p>
+            
+            <!-- TASTIERINO -->
+            <div class="keypad">
+                <button class="key">1</button>
+                <button class="key">2</button>
+                <button class="key">3</button>
+                <button class="key">4</button>
+                <button class="key">5</button>
+                <button class="key">6</button>
+                <button class="key">7</button>
+                <button class="key">8</button>
+                <button class="key">9</button>
+                <button class="key action-btn" id="btn-clear">C</button>
+                <button class="key">0</button>
+                <button class="key action-btn" id="btn-ok">OK</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- SCHERMATA PRINCIPALE (GIOCO A LIVELLI) -->
+    <section id="main-content" class="screen hidden">
+        <header class="game-header">
+            <h1>HAPPY BIRTHDAY,<br>LOVE!</h1>
+            <div class="level-indicator">STAGE <span id="stage-number">1</span>/3</div>
+        </header>
+
+        <div class="stage-container">
+            
+            <!-- STAGE 1: LA LETTERA -->
+            <div class="stage" id="stage-1">
+                <article class="retro-box letter-box">
+                    <p>Buon compleanno alla fidanzata più fantastica del mondo!</p>
+                    <p>Rendi ogni giorno più luminoso con il tuo sorriso, ogni momento più bello con il tuo amore e la mia vita infinitamente più felice semplicemente perché ne fai parte.</p>
+                    <p>Mi sento incredibilmente fortunato ad averti al mio fianco e non vedo l'ora di creare ancora più ricordi, avventure e momenti di felicità insieme a te. Grazie per amarmi, sostenermi e farmi sentire a casa ogni volta che sono con te.</p>
+                    <p>Ti amo più di quanto le parole possano mai esprimere e spero che questo compleanno ti regali tutta la felicità che meriti.</p>
+                    <p class="highlight">Sei davvero la cosa più bella che mi sia mai capitata. Buon compleanno, amore mio.</p>
+                </article>
+            </div>
+
+            <!-- STAGE 2: IL VIDEO E IL BULLDOG -->
+            <div class="stage hidden" id="stage-2">
+                <div class="interactive-section">
+                    <div class="retro-box video-box">
+                        <p class="music-title">▶ NOW PLAYING: SONG FOR YOU</p>
+                        <!-- Inseriamo il video al posto dell'audio. playsinline è vitale per iPhone! -->
+                        <video id="bg-video" controls playsinline>
+                            <!-- Sostituisci "tuo_video.mp4" con il nome esatto del tuo file -->
+                            <source src="img/Franco126 - Angelo - (1080p).mp4" type="video/mp4">
+                            Il tuo browser non supporta il video.
+                        </video>
+                    </div>
+                    
+                    <div class="mascot">
+                        <img src="img/bulldog.png" alt="Bulldog Francese" id="bulldog-img">
+                    </div>
+                </div>
+            </div>
+
+            <!-- STAGE 3: LE FOTO -->
+            <div class="stage hidden" id="stage-3">
+                <div class="photo-gallery">
+                    <div class="retro-photo"><img src="img/1.jpeg" alt="Noi 1"></div>
+                    <div class="retro-photo"><img src="img/2.jpeg" alt="Noi 2"></div>
+                    <div class="retro-photo"><img src="img/3.jpeg" alt="Noi 3"></div>
+                </div>
+                <div class="footer-text">YOU WON! ♥</div>
+            </div>
+
+        </div>
+
+        <!-- BARRA DI NAVIGAZIONE STILE CONSOLE -->
+        <div class="gamepad-nav">
+            <button class="nav-btn" id="prev-btn" style="visibility: hidden;">◀ PREV</button>
+            <button class="nav-btn" id="next-btn">NEXT ▶</button>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>

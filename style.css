@@ -1,0 +1,241 @@
+:root {
+    --bg-top: #9b8cfa;
+    --bg-bottom: #f8c3df;
+    --pixel-border: 4px solid #000;
+    --box-shadow-pixel: 6px 6px 0px #000;
+    --btn-pink: #ff85b3;
+    --btn-press: #e05e8e;
+    --box-bg: #fff;
+    --text-color: #000;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    font-family: 'Press Start 2P', cursive;
+    background: linear-gradient(to bottom, var(--bg-top), var(--bg-bottom));
+    background-attachment: fixed;
+    color: var(--text-color);
+    min-height: 100vh;
+}
+
+#background-animations {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    z-index: -1; pointer-events: none;
+    background-image: repeating-linear-gradient(rgba(0,0,0,0) 0%, rgba(0,0,0,0) 50%, rgba(0,0,0,0.03) 50%, rgba(0,0,0,0.03) 100%);
+    background-size: 100% 4px; /* Effetto scanline TV a tubo catodico leggerissimo */
+}
+
+.pixel-heart {
+    position: absolute; bottom: -10vh;
+    font-family: 'VT323', monospace; color: #ffb3c6;
+    animation: floatUp linear forwards;
+    text-shadow: 2px 2px 0px #000;
+}
+
+@keyframes floatUp {
+    0% { transform: translateY(0) scale(1); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(-110vh) scale(1.5); opacity: 0; }
+}
+
+.hidden { display: none !important; }
+
+/* --- SCHERMATA LOGIN UNIFICATA --- */
+.screen {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 15px; /* Spazio laterale per schermi stretti */
+}
+
+.login-container {
+    width: 100%;
+    max-width: 360px; /* Dimensione perfetta per non sbordare su iPhone */
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+    background-color: var(--box-bg);
+    border: var(--pixel-border);
+    box-shadow: var(--box-shadow-pixel);
+}
+
+/* Incorniciatura stilizzata della foto */
+.login-photo-wrapper {
+    margin-bottom: 25px;
+    width: 140px;
+    height: 140px;
+    position: relative;
+}
+
+.hero-login-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: var(--pixel-border);
+    background-color: #fff;
+    padding: 4px; /* Crea un effetto polaroid attorno alla foto */
+    box-shadow: 4px 4px 0px #ff4785; /* Un'ombra rosa per farla risaltare */
+}
+
+/* Stili Testo e PIN */
+.login-container h2 {
+    font-size: 14px;
+    margin-bottom: 15px;
+    color: #ff4785;
+    text-shadow: 1px 1px 0px #000;
+}
+
+.pin-display {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 25px;
+    font-size: 28px;
+    letter-spacing: 2px;
+}
+
+.dot {
+    width: 35px;
+    text-align: center;
+    border-bottom: 4px solid #000;
+}
+
+/* Tastierino proporzionato */
+.keypad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    width: 100%;
+}
+
+.key {
+    background-color: var(--btn-pink);
+    border: var(--pixel-border);
+    box-shadow: 4px 4px 0px #000;
+    height: 65px; /* Abbassato leggermente per far entrare tutto comodamente */
+    font-family: 'Press Start 2P', cursive;
+    font-size: 20px;
+    color: #fff;
+    text-shadow: 2px 2px 0px #000;
+    transition: all 0.1s;
+    cursor: pointer;
+}
+
+.key:active {
+    box-shadow: 0px 0px 0px #000;
+    transform: translate(4px, 4px);
+    background-color: var(--btn-press);
+}
+
+.action-btn {
+    font-size: 14px;
+    background-color: #ffd700;
+    color: #000;
+    text-shadow: none;
+}
+
+#error-msg {
+    color: red;
+    font-size: 10px;
+    margin-top: -15px;
+    margin-bottom: 15px;
+    animation: blink 0.5s infinite;
+}
+
+/* Stili Box Comuni (utilizzati negli Stage) */
+.retro-box {
+    background-color: var(--box-bg); border: var(--pixel-border);
+    box-shadow: var(--box-shadow-pixel); padding: 25px 20px; text-align: center;
+}
+.retro-box h2 { font-size: 14px; margin-bottom: 25px; color: #ff4785; }
+
+/* --- MAIN CONTENT & STAGES --- */
+#main-content {
+    padding-bottom: 80px; /* Spazio per la barra in basso */
+    min-height: 100vh;
+}
+
+.game-header {
+    text-align: center; padding: 20px 10px;
+}
+.game-header h1 { font-size: 20px; color: #fff; text-shadow: 3px 3px 0px #000, -2px -2px 0px #ff4785; line-height: 1.5; margin-bottom: 10px; }
+.level-indicator { font-size: 12px; color: #ffeb3b; text-shadow: 2px 2px 0px #000; }
+
+.stage-container {
+    width: 100%; max-width: 500px; margin: 0 auto; padding: 0 20px;
+}
+
+/* Animazione cambio livello */
+.stage { animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+@keyframes popIn {
+    0% { transform: scale(0.9); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* Contenuti Stage */
+.letter-box { font-family: 'VT323', monospace; font-size: 22px; line-height: 1.4; text-align: left; background-color: #fffcf0; }
+.letter-box p { margin-bottom: 15px; }
+.letter-box .highlight { color: #d10047; text-align: center; font-weight: bold; }
+
+.interactive-section { display: flex; flex-direction: column; align-items: center; gap: 40px; }
+
+/* --- STILE VIDEO STAGE 2 --- */
+.video-box { 
+    background-color: #e0d8ff; 
+    width: 100%; 
+    padding: 15px; 
+}
+
+.music-title { 
+    font-size: 10px; 
+    margin-bottom: 15px; 
+    word-wrap: break-word; /* Evita che il testo esca dai bordi se troppo lungo */
+}
+
+video { 
+    width: 100%; 
+    max-height: 260px; /* Altezza di sicurezza perfetta per lo schermo dell'iPhone */
+    height: auto;
+    object-fit: contain; /* Fondamentale: non sforma e non taglia l'immagine */
+    background-color: #000; /* Bande nere per adattare proporzioni diverse */
+    border: var(--pixel-border); 
+    box-shadow: 4px 4px 0px #000;
+    border-radius: 4px;
+}
+
+.mascot img { width: 180px; filter: drop-shadow(4px 4px 0px #000); animation: bob 1s infinite alternate steps(3); }
+@keyframes bob { from { transform: translateY(0); } to { transform: translateY(-10px); } }
+
+.photo-gallery { display: flex; flex-direction: column; gap: 30px; align-items: center; }
+.retro-photo { width: 100%; background-color: #fff; padding: 15px 15px 35px 15px; border: var(--pixel-border); box-shadow: var(--box-shadow-pixel); }
+.retro-photo img { width: 100%; display: block; border: 2px solid #000; }
+
+.footer-text { font-size: 24px; color: #ffeb3b; text-shadow: 3px 3px 0px #000; text-align: center; margin-top: 30px; animation: blink 0.8s infinite; }
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+/* --- BARRA DI NAVIGAZIONE STILE GAMEBOY --- */
+.gamepad-nav {
+    position: fixed; bottom: 0; left: 0; width: 100%;
+    background-color: #e0e0e0;
+    border-top: var(--pixel-border);
+    display: flex; justify-content: space-between;
+    padding: 15px 20px; z-index: 100;
+}
+.nav-btn {
+    background-color: #fff; border: var(--pixel-border); box-shadow: 3px 3px 0px #000;
+    font-family: 'Press Start 2P', cursive; font-size: 12px; padding: 15px; cursor: pointer;
+    transition: transform 0.1s;
+}
+.nav-btn:active { transform: translate(3px, 3px); box-shadow: 0px 0px 0px #000; }
