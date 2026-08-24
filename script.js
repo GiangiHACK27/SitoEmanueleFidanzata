@@ -81,22 +81,71 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.openLetter = function() {
         envelope.classList.add('open');
-        document.getElementById('tap-hint').style.display = 'none'; 
+        document.getElementById('tap-hint').style.display = 'none';
 
         setTimeout(() => {
-            envelope.style.opacity = '0'; 
-            realLetter.classList.remove('hidden'); 
-            
+            envelope.style.opacity = '0';
+            realLetter.classList.remove('hidden');
+
             setTimeout(() => {
-                realLetter.classList.add('visible'); 
-                mainNav.classList.remove('hidden'); 
+                realLetter.classList.add('visible');
+
+                // Aspetta che la pergamena si srotoli, poi scrive il testo piano piano
+                setTimeout(() => {
+                    writeLetterText(() => {
+                        mainNav.classList.remove('hidden');
+                    });
+                }, 500);
             }, 50);
-            
+
             setTimeout(() => {
                 envelope.style.display = 'none';
             }, 600);
-            
+
         }, 1100);
+    }
+
+    // EFFETTO "SCRITTURA" DELLA LETTERA, LETTERA PER LETTERA
+    function writeLetterText(onComplete) {
+        const paragraphs = Array.from(realLetter.querySelectorAll('.parchment-text p'));
+        const originalTexts = paragraphs.map(p => p.textContent);
+        paragraphs.forEach(p => { p.textContent = ''; });
+
+        const cursor = document.createElement('span');
+        cursor.className = 'letter-cursor';
+        cursor.textContent = '|';
+
+        let pIndex = 0;
+        let charIndex = 0;
+
+        function typeNextChar() {
+            if (pIndex >= paragraphs.length) {
+                cursor.remove();
+                if (onComplete) onComplete();
+                return;
+            }
+
+            const currentP = paragraphs[pIndex];
+            const currentText = originalTexts[pIndex];
+
+            if (charIndex === 0) {
+                currentP.appendChild(cursor);
+            }
+
+            if (charIndex < currentText.length) {
+                const nextChar = currentText[charIndex];
+                cursor.insertAdjacentText('beforebegin', nextChar);
+                charIndex++;
+                const pauseChar = /[,.!?]/.test(nextChar) ? 200 : 22 + Math.random() * 30;
+                setTimeout(typeNextChar, pauseChar);
+            } else {
+                pIndex++;
+                charIndex = 0;
+                setTimeout(typeNextChar, 400);
+            }
+        }
+
+        typeNextChar();
     }
 
     // LOGICA NAVIGAZIONE LIVELLI (Frecce)
@@ -116,11 +165,9 @@ document.addEventListener('DOMContentLoaded', () => {
         prevBtn.style.visibility = currentStage === 1 ? 'hidden' : 'visible';
         nextBtn.style.visibility = currentStage === totalStages ? 'hidden' : 'visible';
 
-        // Auto play del video per lo Stage 2
-        if(currentStage === 2) {
+        // Auto play del video quando si entra nello Stage 2 (non viene più messo in pausa cambiando stage)
+        if(currentStage === 2 && bgVideo.paused) {
             bgVideo.play().catch(e => console.log("L'utente deve premere play."));
-        } else {
-            bgVideo.pause();
         }
     }
 
